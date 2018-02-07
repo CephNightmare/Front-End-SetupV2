@@ -1,0 +1,23 @@
+﻿/// <reference path='../_reference.scss' />
+
+.badge {
+    background: map-deep-get($colors, 'grey', 'default');
+    border-radius: 9px;
+    color: map-deep-get($colors, 'white', 'default');
+    display: inline-block;
+    font-size: rem-calc(14);
+    line-height: rem-calc(14);
+    min-width: 18px;
+    padding: 2px;
+    text-align: center;
+
+    $badge: &;
+
+    //
+    // Create classes for default color variants
+    @each $key, $val in $colors {
+        &--#{$key} {
+            background: map-get($val, default);
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "name": "templates-basic",
+    "version": "0.0.1",
+    "description": "A basic template for front-end development for blis projects",
+    "author": "Benjamin Dudok - Blis Digital.",
+    "license": "ISC",
+    "dependencies": {
+        "foundation-sites": "^6.4.3"
+    },
+    "devDependencies": {
+        "gulp": "^3.9.1",
+        "gulp-autoprefixer": "^4.0.0",
+        "gulp-clean-css": "^3.5.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-expect-file": "0.0.7",
+        "gulp-imagemin": "^3.3.0",
+        "gulp-postcss": "^7.0.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-sass": "^3.1.0",
+        "gulp-uglify": "^3.0.0",
+        "imagemin-pngquant": "^5.0.1",
+        "postcss-reporter": "^5.0.0",
+        "postcss-scss": "^1.0.2",
+        "doiuse": "^4.0.0",
+        "stylelint": "^8.0.0"
+    },
+    "browserslist": [
+        "last 2 versions"
+    ]
+}
