@@ -1,0 +1,30 @@
+.grid-row {
+  @include display-grid;
+  grid-template-columns: repeat(#{$grid-columns}, 1fr);
+  grid-template-rows: repeat(#{$grid-rows}, 1fr);
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+  height: 300px;
+  border: 10px solid tomato;
+  padding: 10px;
+
+  @for $i from 1 through ($grid-columns + 1) {
+    .gsh-#{$i} {
+      grid-column-start: $i;
+    }
+
+    .geh-#{$i} {
+      grid-column-end: $i;
+    }
+  }
+
+  @for $i from 1 through $grid-rows + 1 {
+    .gsv-#{$i} {
+      grid-row-start: $i;
+    }
+
+    .gev-#{$i} {
+      grid-row-end: $i;
+    }
+  }
+}

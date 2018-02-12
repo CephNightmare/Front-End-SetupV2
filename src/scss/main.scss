@@ -8,13 +8,15 @@
 @import 'base/typography';
 
 // Grid Setup
-@import 'vendors/_grid';
-@import 'vendors/_cssgrid';
+@import 'grid/_variables';
+@import 'grid/_grid';
+@import 'grid/_cssgrid';
 
 // Components
 @import 'components/alert';
 @import 'components/badge';
 @import 'components/buttons';
+@import 'components/block';
 
 // Layout specific styles
 @import 'layout/content';

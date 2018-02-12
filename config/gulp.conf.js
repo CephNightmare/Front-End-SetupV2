@@ -17,7 +17,7 @@ module.exports = function ()
         },
         scss: {
             src: [
-                paths.src + 'scss/main.scss'
+                paths.src + 'scss/**/*'
             ],
             dest: paths.dist + 'css/'
         },
