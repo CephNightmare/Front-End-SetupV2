@@ -28,3 +28,30 @@
     }
   }
 }
+
+@each $sizeLabel, $value in $sizes {
+
+  @media only screen and (min-width: #{$value}) {
+    .grid-row {
+      @for $i from 1 through $grid-columns {
+        .gsh-#{$sizeLabel}-#{$i} {
+          grid-column-start: $i;
+        }
+
+        .geh-#{$sizeLabel}-#{$i} {
+          grid-column-end: $i;
+        }
+      }
+
+      @for $i from 1 through $grid-rows {
+        .gsv-#{$sizeLabel}-#{$i} {
+          grid-column-start: $i;
+        }
+
+        .gev-#{$sizeLabel}-#{$i} {
+          grid-column-end: $i;
+        }
+      }
+    }
+  }
+}
