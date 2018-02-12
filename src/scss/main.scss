@@ -1,8 +1,4 @@
-//Foundation
-@import 'foundation';
-
 // Variables and sass helpers
-@import 'abstracts/settings';
 @import 'abstracts/variables';
 @import 'abstracts/functions';
 @import 'abstracts/mixins';
@@ -11,8 +7,9 @@
 // base
 @import 'base/typography';
 
-// Vendor styles
-@import 'vendors/foundation';
+// Grid Setup
+@import 'vendors/_grid';
+@import 'vendors/_cssgrid';
 
 // Components
 @import 'components/alert';
@@ -28,5 +25,5 @@
 // Page specific styles
 @import 'pages/home';
 
-// shame file for lousy css hacks and importants
+// shame file for lousy css hacks and !importants
 @import 'shame';

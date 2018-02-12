@@ -48,3 +48,8 @@
         margin-right: -.25rem; /* Adjusts for spacing */
     }
 }
+
+@mixin display-grid {
+  display: -ms-grid;
+  display: grid;
+}

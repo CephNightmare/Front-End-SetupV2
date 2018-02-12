@@ -11,7 +11,6 @@ module.exports = function ()
         js: {
             src: [
                 paths.node + 'jquery/dist/jquery.js',
-                paths.node + 'foundation-sites/dist/js/plugins/foundation.core.js',
                 paths.src + 'js/app.js'
             ],
             dest: paths.dist + 'js/'
@@ -32,7 +31,7 @@ module.exports = function ()
             ],
             dest: paths.dist + 'fonts/'
         }
-    }
+    };
 
     return config;
-}
+};

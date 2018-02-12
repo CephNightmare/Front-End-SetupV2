@@ -10,6 +10,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     reporter = require('postcss-reporter'),
     sass = require('gulp-sass'),
+    doiuse = require('doiuse'),
     syntax_scss = require('postcss-scss'),
     stylelint = require('stylelint'),
     uglify = require('gulp-uglify');
@@ -65,11 +66,34 @@ gulp.task('js', function () {
 gulp.task('scss_lint', function () {
     return gulp.src(config.scss.src)
         .pipe(postcss(processors, {syntax: syntax_scss}));
-})
+});
+
+// Check if all css functionalities adhere to the defined supported browsers.
+// Set browser compatibility per project
+// Give warnings (not errors!) if files do not comply
+gulp.task("doiuse", function () {
+    return gulp.src(config.scss.src)
+        .pipe(postcss([
+            doiuse({
+                browsers: [
+                    'ie >= 10',
+                    '> 1%'
+                ],
+                ignoreFiles: [
+                    "**/_shame.scss",
+                    "**/vendors/**/*.scss"
+                ],
+                onFeatureUsage: function (usageInfo) {
+                    console.log(usageInfo.message)
+                }
+            })
+        ], {syntax: syntax_scss}));
+});
+
 
 // Compile all sass files (including vendor) into a single css file after linting is done
 // Autoprefixes are added on compile and cleancss minifies and cleans the file
-gulp.task('scss', ['scss_lint'], function () {
+gulp.task('scss', ['scss_lint', 'doiuse'], function () {
     return gulp.src(config.scss.src)
         .pipe(expect(config.scss.src))
         .pipe(sass({
@@ -113,25 +137,6 @@ gulp.task('images', function () {
             svgoPlugins: [{removeViewBox: false}]
         }))
         .pipe(gulp.dest(config.images.dest));
-});
-
-gulp.task("doiuse", function () {
-    return gulp.src(config.scss.src)
-        .pipe(postcss([
-            doiuse({
-                browsers: [
-                    'ie >= 10',
-                    '> 1%'
-                ],
-                ignoreFiles: [
-                    "**/_shame.scss",
-                    "**/vendors/**/*.scss"
-                ],
-                onFeatureUsage: function (usageInfo) {
-                    console.log(usageInfo.message)
-                }
-            })
-        ], {syntax: syntax_scss}));
 });
 
 gulp.task('fonts', function () {
