@@ -1,72 +1,114 @@
 .grid {
+  display: flex;
+  flex-wrap: wrap;
+  height: 300px;
+  border: 10px solid tomato;
+  padding: 5px;
+
+  > div {
+    margin: 5px;
+    box-sizing: border-box
+  }
+
+  @supports (display: grid) {
     @include display-grid;
+    flex-wrap: unset;
     grid-template-columns: repeat(#{$grid-columns}, 1fr);
     grid-template-rows: repeat(#{$grid-rows}, 1fr);
     grid-row-gap: 10px;
     grid-column-gap: 10px;
-    height: 300px;
-    border: 10px solid tomato;
     padding: 10px;
 
-    @for $i from 1 through ($grid-columns) {
-        &__startCol#{$i} {
+    > div {
+      flex: unset;
+      margin: 0;
+    }
+  }
+
+  @for $i from 1 through ($grid-columns) {
+
+    &__spanCol#{$i} {
+      flex-basis: $i / $grid-columns * 100%;
+    }
+
+    &__endCol#{$i} {
+      grid-column-end: $i;
+    }
+
+    @supports (display: grid) {
+
+      &__startCol#{$i} {
+        grid-column-start: $i;
+      }
+
+      &__spanCol#{$i} {
+        grid-column-end: span $i;
+        flex-basis: unset;
+      }
+
+      &__endCol#{$i} {
+        grid-column-end: $i;
+      }
+    }
+  }
+
+  @for $i from 1 through $grid-rows {
+    &__startRow#{$i} {
+      grid-row-start: $i;
+    }
+
+    &__spanRow#{$i} {
+      grid-row-end: span $i;
+    }
+
+    &__endRow#{$i} {
+      grid-row-end: $i;
+    }
+  }
+
+  @each $sizeLabel, $value in $sizes {
+
+    @media only screen and (min-width: #{$value}) {
+
+      @for $i from 1 through $grid-columns {
+
+        &__spanCol#{$i}--#{$sizeLabel} {
+          flex-basis: $i / $grid-columns * 100%;
+        }
+
+        &__endCol#{$i}--#{$sizeLabel} {
+          grid-column-end: $i;
+        }
+
+        @supports (display: grid) {
+
+          &__startCol#{$i}--#{$sizeLabel} {
             grid-column-start: $i;
-        }
+          }
 
-        &__spanCol#{$i} {
+          &__spanCol#{$i}--#{$sizeLabel} {
             grid-column-end: span $i;
-        }
+          }
 
-        &__endCol#{$i} {
+          &__endCol#{$i}--#{$sizeLabel} {
             grid-column-end: $i;
+          }
         }
+      }
+
+      @for $i from 1 through $grid-rows {
+        &__startRow#{$i}--#{$sizeLabel} {
+          grid-row-start: $i;
+        }
+
+        &__spanRow#{$i}--#{$sizeLabel} {
+          grid-row-end: span $i;
+        }
+
+        &__endRow#{$i}--#{$sizeLabel} {
+          grid-row-end: $i;
+        }
+      }
     }
-
-    @for $i from 1 through $grid-rows {
-        &__startRow#{$i} {
-            grid-row-start: $i;
-        }
-
-        &__spanRow#{$i} {
-            grid-row-end: span $i;
-        }
-
-        &__endRow#{$i} {
-            grid-row-end: $i;
-        }
-    }
-
-    @each $sizeLabel, $value in $sizes {
-
-        @media only screen and (min-width: #{$value}) {
-
-            @for $i from 1 through $grid-columns {
-                &__startCol#{$i}--#{$sizeLabel} {
-                    grid-column-start: $i;
-                }
-
-                &__spanCol#{$i}--#{$sizeLabel} {
-                    grid-column-end: span $i;
-                }
-
-                &__endCol#{$i}--#{$sizeLabel} {
-                    grid-column-end: $i;
-                }
-            }
-
-            @for $i from 1 through $grid-rows {
-                &__startRow#{$i}--#{$sizeLabel} {
-                    grid-row-start: $i;
-                }
-
-                &__spanRow#{$i}--#{$sizeLabel} {
-                    grid-row-end: span $i;
-                }
-
-                &__endRow#{$i}--#{$sizeLabel} {
-                    grid-row-end: $i;
-                }
-            }
-        }
-    }
+  }
 }
