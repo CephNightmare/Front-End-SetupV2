@@ -1,57 +1,72 @@
-.grid-row {
-  @include display-grid;
-  grid-template-columns: repeat(#{$grid-columns}, 1fr);
-  grid-template-rows: repeat(#{$grid-rows}, 1fr);
-  grid-row-gap: 10px;
-  grid-column-gap: 10px;
-  height: 300px;
-  border: 10px solid tomato;
-  padding: 10px;
+.grid {
+    @include display-grid;
+    grid-template-columns: repeat(#{$grid-columns}, 1fr);
+    grid-template-rows: repeat(#{$grid-rows}, 1fr);
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    height: 300px;
+    border: 10px solid tomato;
+    padding: 10px;
 
-  @for $i from 1 through ($grid-columns + 1) {
-    .gsh-#{$i} {
-      grid-column-start: $i;
-    }
-
-    .geh-#{$i} {
-      grid-column-end: $i;
-    }
-  }
-
-  @for $i from 1 through $grid-rows + 1 {
-    .gsv-#{$i} {
-      grid-row-start: $i;
-    }
-
-    .gev-#{$i} {
-      grid-row-end: $i;
-    }
-  }
-}
-
-@each $sizeLabel, $value in $sizes {
-
-  @media only screen and (min-width: #{$value}) {
-    .grid-row {
-      @for $i from 1 through $grid-columns {
-        .gsh-#{$sizeLabel}-#{$i} {
-          grid-column-start: $i;
+    @for $i from 1 through ($grid-columns) {
+        &__startCol#{$i} {
+            grid-column-start: $i;
         }
 
-        .geh-#{$sizeLabel}-#{$i} {
-          grid-column-end: $i;
-        }
-      }
-
-      @for $i from 1 through $grid-rows {
-        .gsv-#{$sizeLabel}-#{$i} {
-          grid-column-start: $i;
+        &__spanCol#{$i} {
+            grid-column-end: span $i;
         }
 
-        .gev-#{$sizeLabel}-#{$i} {
-          grid-column-end: $i;
+        &__endCol#{$i} {
+            grid-column-end: $i;
         }
-      }
     }
-  }
+
+    @for $i from 1 through $grid-rows {
+        &__startRow#{$i} {
+            grid-row-start: $i;
+        }
+
+        &__spanRow#{$i} {
+            grid-row-end: span $i;
+        }
+
+        &__endRow#{$i} {
+            grid-row-end: $i;
+        }
+    }
+
+    @each $sizeLabel, $value in $sizes {
+
+        @media only screen and (min-width: #{$value}) {
+
+            @for $i from 1 through $grid-columns {
+                &__startCol#{$i}--#{$sizeLabel} {
+                    grid-column-start: $i;
+                }
+
+                &__spanCol#{$i}--#{$sizeLabel} {
+                    grid-column-end: span $i;
+                }
+
+                &__endCol#{$i}--#{$sizeLabel} {
+                    grid-column-end: $i;
+                }
+            }
+
+            @for $i from 1 through $grid-rows {
+                &__startRow#{$i}--#{$sizeLabel} {
+                    grid-row-start: $i;
+                }
+
+                &__spanRow#{$i}--#{$sizeLabel} {
+                    grid-row-end: span $i;
+                }
+
+                &__endRow#{$i}--#{$sizeLabel} {
+                    grid-row-end: $i;
+                }
+            }
+        }
+    }
 }

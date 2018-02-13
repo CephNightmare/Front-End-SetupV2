@@ -15,17 +15,17 @@ Use the following class definitions to position your elements:
 
 ```sh
 - gsh-$i (grid-start-horizontal)-(desired grid position)
-- geh-$i (grid-end-horizontal)-(desired grid position)
+- gwh-$i (grid-end-horizontal)-(desired grid position)
 - gsv-$i (grid-start-vertical)-(desired grid position)
-- gev-$i (grid-end-vertical)-(desired grid position)
+- ghv-$i (grid-end-vertical)-(desired grid position)
 ```
 
 Or optionally, Make a responsive layout:
 ```sh
 - gsh-$br-$i (grid-start-horizontal)-(breakpoint)-(desired grid position)
-- geh-$br-$i (grid-start-horizontal)-(breakpoint)-(desired grid position)
+- gwh-$br-$i (grid-start-horizontal)-(breakpoint)-(desired grid position)
 - gsv-$br-$i (grid-start-horizontal)-(breakpoint)-(desired grid position)
-- gev-$br-$i (grid-start-horizontal)-(breakpoint)-(desired grid position)
+- ghv-$br-$i (grid-start-horizontal)-(breakpoint)-(desired grid position)
 ```
 
 # Coming soon
