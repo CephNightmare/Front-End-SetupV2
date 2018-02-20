@@ -64,7 +64,7 @@ gulp.task('js', function () {
 // Check if all scss files adhere to css coding standards
 // Give warnings (not errors!) if files do not comply
 gulp.task('scss_lint', function () {
-    return gulp.src(config.scss.src)
+    return gulp.src(config.scss.watch)
         .pipe(postcss(processors, {syntax: syntax_scss}));
 });
 
@@ -93,7 +93,7 @@ gulp.task("doiuse", function () {
 
 // Compile all sass files (including vendor) into a single css file after linting is done
 // Autoprefixes are added on compile and cleancss minifies and cleans the file
-gulp.task('scss', ['scss_lint', 'doiuse'], function () {
+gulp.task('scss', ['doiuse'], function () {
     return gulp.src(config.scss.src)
         .pipe(expect(config.scss.src))
         .pipe(sass({

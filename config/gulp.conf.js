@@ -19,6 +19,9 @@ module.exports = function ()
             src: [
                 paths.src + 'scss/main.scss'
             ],
+            watch: [
+                paths.src + 'scss/**/*.scss'
+            ],
             dest: paths.dist + 'css/'
         },
         images: {
