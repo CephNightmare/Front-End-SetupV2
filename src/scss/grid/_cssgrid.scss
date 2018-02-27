@@ -1,120 +1,230 @@
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-  padding: ($grid-spacing-rows / 2) ($grid-spacing-columns / 2);
-  overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 ($grid-spacing-columns / 2);
+    overflow: hidden;
+    max-width: $grid-max-width;
+    width: 100%;
+    margin: 0 auto;
 
-  &__col {
-    float: left;
-    padding: ($grid-spacing-rows / 2) ($grid-spacing-columns / 2);
-    box-sizing: border-box;
-  }
-
-  @supports (display: grid) {
-    @include display-grid;
-    flex-wrap: unset;
-    grid-template-columns: repeat(#{$grid-columns}, 1fr);
-    grid-row-gap: $grid-spacing-rows;
-    grid-column-gap: $grid-spacing-columns;
-    padding: $grid-spacing-columns;
+    &--expanded {
+        max-width: none;
+    }
 
     &__col {
-      float: none;
-      padding: 0;
-    }
-  }
+        padding: ($grid-spacing-rows / 2) ($grid-spacing-columns / 2);
+        box-sizing: border-box;
 
-  @for $i from 1 through ($grid-columns) {
+        &--collapseAll {
+            padding: 0;
+        }
 
-    &__colSpan-#{$i} {
-      width: ($i / $grid-columns * 100%);
+        &--collapseGutters {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        &--collapseRows {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        @each $sizeLabel, $value in $sizes {
+
+            //Implement Media query class definitions
+            @media only screen and (min-width: #{$value}) {
+
+                &--#{$sizeLabel}-collapseAll {
+                    padding: 0;
+                }
+
+                &--#{$sizeLabel}-collapseGutters {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+
+                &--#{$sizeLabel}-collapseRows {
+                    padding-top: 0;
+                    padding-bottom: 0;
+                }
+
+                &--#{$sizeLabel}-unCollapseAll {
+                    padding: ($grid-spacing-rows / 2) ($grid-spacing-columns / 2);
+                }
+
+                &--#{$sizeLabel}-unCollapseGutters {
+                    padding-left: ($grid-spacing-columns / 2);
+                    padding-right: ($grid-spacing-columns / 2);
+                }
+
+                &--#{$sizeLabel}-unCollapseRows {
+                    padding-top: ($grid-spacing-rows / 2);
+                    padding-bottom: ($grid-spacing-rows / 2);
+                }
+            }
+        }
     }
 
     @supports (display: grid) {
+        display: grid;
+        flex-wrap: unset;
+        grid-template-columns: repeat(#{$grid-columns}, 1fr);
+        grid-row-gap: $grid-spacing-rows;
+        grid-column-gap: $grid-spacing-columns;
+        padding: $grid-spacing-columns / 2;
 
-      &__colStart-#{$i} {
-        grid-column-start: $i;
-      }
+        &__col {
+            float: none;
+            padding: 0;
 
-      &__colEnd-#{$i} {
-        grid-column-end: $i;
-      }
+            &--collapseAll {
+                margin: (-$grid-spacing-rows / 2) (-$grid-spacing-columns / 2);
+            }
 
-      &__colSpan-#{$i} {
-        grid-column-end: span $i;
-        flex-basis: unset;
-        width: unset;
-      }
+            &--collapseGutters {
+                margin-left: (-$grid-spacing-columns / 2);
+                margin-right: (-$grid-spacing-columns / 2);
+            }
 
-      &__colEnd-#{$i} {
-        grid-column-end: $i;
-      }
+            &--collapseRows {
+                margin-top: (-$grid-spacing-columns / 2);
+                margin-bottom: (-$grid-spacing-columns / 2);
+            }
 
-      @for $i from 1 through $grid-rows {
-        &__rowStart-#{$i} {
-          grid-row-start: $i;
+            &--unCollapseAll {
+                margin: 0;
+            }
+
+            &--unCollapseGutters {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            &--unCollapseRows {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
+
+            @each $sizeLabel, $value in $sizes {
+
+                //Implement Media query class definitions
+                @media only screen and (min-width: #{$value}) {
+
+                    &--#{$sizeLabel}-collapseAll {
+                        margin: (-$grid-spacing-rows / 2) (-$grid-spacing-columns / 2);
+                    }
+
+                    &--#{$sizeLabel}-collapseGutters {
+                        margin-left: (-$grid-spacing-columns / 2);
+                        margin-right: (-$grid-spacing-columns / 2);
+                    }
+
+                    &--#{$sizeLabel}-collapseRows {
+                        margin-top: (-$grid-spacing-columns / 2);
+                        margin-bottom: (-$grid-spacing-columns / 2);
+                    }
+
+                    &--#{$sizeLabel}-unCollapseAll {
+                        margin: 0;
+                    }
+
+                    &--#{$sizeLabel}-unCollapseGutters {
+                        margin-left: 0;
+                        margin-right: 0;
+                    }
+
+                    &--#{$sizeLabel}-unCollapseRows {
+                        margin-top: 0;
+                        margin-bottom: 0;
+                    }
+                }
+            }
         }
-
-        &__rowSpan-#{$i} {
-          grid-row-end: span $i;
-        }
-
-        &__rowEnd-#{$i} {
-          grid-row-end: $i;
-        }
-      }
     }
-  }
 
-  @each $sizeLabel, $value in $sizes {
+    @for $i from 1 through ($grid-columns) {
 
-    //Implement Media query class definitions
-    @media only screen and (min-width: #{$value}) {
-
-      @for $i from 1 through $grid-columns {
-
-        &__colSpan-#{$i}--#{$sizeLabel} {
-          width: ($i / $grid-columns * 100%);
+        &__colSpan-#{$i} {
+            width: ($i / $grid-columns * 100%);
         }
 
         @supports (display: grid) {
 
-          &__colStart-#{$i}--#{$sizeLabel} {
-            grid-column-start: $i;
-          }
-
-          &__colEnd-#{$i}--#{$sizeLabel} {
-            grid-column-end: $i;
-          }
-
-          &__colSpan-#{$i}--#{$sizeLabel} {
-            grid-column-end: span $i;
-            width: unset;
-          }
-
-          &__colEnd-#{$i}--#{$sizeLabel} {
-            grid-column-end: $i;
-          }
-
-          &__col--offset-#{$i} {
-            margin-left: ($i / $grid-columns * 100%);
-          }
-
-          @for $i from 1 through $grid-rows {
-            &__rowStart-#{$i}--#{$sizeLabel} {
-              grid-row-start: $i;
+            &__colStart-#{$i} {
+                grid-column-start: $i;
             }
 
-            &__rowSpan-#{$i}--#{$sizeLabel} {
-              grid-row-end: span $i;
+            &__colEnd-#{$i} {
+                grid-column-end: $i;
             }
 
-            &__rowEnd-#{$i}--#{$sizeLabel} {
-              grid-row-end: $i;
+            &__colSpan-#{$i} {
+                grid-column-end: span $i;
+                flex-basis: unset;
+                width: unset;
             }
-          }
         }
-      }
     }
-  }
+
+    @for $i from 1 through $grid-rows {
+        &__rowStart-#{$i} {
+            grid-row-start: $i;
+        }
+
+        &__rowSpan-#{$i} {
+            grid-row-end: span $i;
+        }
+
+        &__rowEnd-#{$i} {
+            grid-row-end: $i;
+        }
+    }
+
+    @each $sizeLabel, $value in $sizes {
+
+        //Implement Media query class definitions
+        @media only screen and (min-width: #{$value}) {
+
+            @for $i from 1 through $grid-columns {
+
+                &__colSpan-#{$i}--#{$sizeLabel} {
+                    width: ($i / $grid-columns * 100%);
+                }
+
+                @supports (display: grid) {
+
+                    &__colStart-#{$i}--#{$sizeLabel} {
+                        grid-column-start: $i;
+                    }
+
+                    &__colEnd-#{$i}--#{$sizeLabel} {
+                        grid-column-end: $i;
+                    }
+
+                    &__colSpan-#{$i}--#{$sizeLabel} {
+                        grid-column-end: span $i;
+                        width: unset;
+                    }
+
+                    &__col--offset-#{$i} {
+                        margin-left: ($i / $grid-columns * 100%);
+                    }
+                }
+            }
+
+            @for $i from 1 through $grid-rows {
+                &__rowStart-#{$i}--#{$sizeLabel} {
+                    grid-row-start: $i;
+                }
+
+                &__rowSpan-#{$i}--#{$sizeLabel} {
+                    grid-row-end: span $i;
+                }
+
+                &__rowEnd-#{$i}--#{$sizeLabel} {
+                    grid-row-end: $i;
+                }
+            }
+        }
+    }
 }

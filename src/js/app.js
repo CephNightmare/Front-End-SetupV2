@@ -4,6 +4,4 @@
     var $window = $(window),
         $document = $(document);
 
-    alert('hello world!');
-
 })(window, window.document, jQuery);

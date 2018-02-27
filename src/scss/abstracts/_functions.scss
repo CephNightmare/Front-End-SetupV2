@@ -12,10 +12,6 @@
   @return $map;
 }
 
-@function calculate-number($first-number, $second-number) {
-  @return $first-number + $second-number;
-}
-
 /// Deep set function to set a value in nested maps
 /// @author Hugo Giraudel
 /// @access public
